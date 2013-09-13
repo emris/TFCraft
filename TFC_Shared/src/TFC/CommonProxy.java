@@ -74,11 +74,13 @@ import TFC.TileEntities.TileEntityFoodPrep;
 import TFC.TileEntities.TileEntityForge;
 import TFC.TileEntities.TileEntityFruitTreeWood;
 import TFC.TileEntities.TileEntityIngotPile;
+import TFC.TileEntities.TileEntityLadder;
 import TFC.TileEntities.TileEntityLogPile;
 import TFC.TileEntities.TileEntityMetallurgy;
 import TFC.TileEntities.TileEntityPartial;
 import TFC.TileEntities.TileEntityPottery;
 import TFC.TileEntities.TileEntityQuern;
+import TFC.TileEntities.TileEntityReeds;
 import TFC.TileEntities.TileEntitySapling;
 import TFC.TileEntities.TileEntityScribe;
 import TFC.TileEntities.TileEntitySluice;
@@ -118,7 +120,7 @@ public class CommonProxy implements IGuiHandler
 		ModLoader.registerTileEntity(TileEntityLogPile.class, "TerraLogPile");
 
 		ModLoader.registerTileEntity(TileEntityWorkbench.class, "TerraWorkbench");
-		ModLoader.registerTileEntity(TileEntityFirepit.class, "TerraFirepit");
+		
 		ModLoader.registerTileEntity(TileEntityAnvil.class, "TerraAnvil");
 		ModLoader.registerTileEntity(TileEntityScribe.class, "TerraScribe");
 		ModLoader.registerTileEntity(TileEntityForge.class, "TerraForge");
@@ -151,6 +153,9 @@ public class CommonProxy implements IGuiHandler
 			ModLoader.registerTileEntity(TileEntityChestTFC.class, "chest");
 			ModLoader.registerTileEntity(TileEntityFoodPrep.class, "FoodPrep");
 			ModLoader.registerTileEntity(TileEntityBellows.class, "Bellows");
+			ModLoader.registerTileEntity(TileEntityReeds.class, "Reeds");
+			ModLoader.registerTileEntity(TileEntityLadder.class, "Ladder");
+			ModLoader.registerTileEntity(TileEntityFirepit.class, "TerraFirepit");
 		}
 
 		EntityRegistry.registerGlobalEntityID(EntityWolfTFC.class, "Wolf", ModLoader.getUniqueEntityId(), 0xffffff, 0xaaaaaa);

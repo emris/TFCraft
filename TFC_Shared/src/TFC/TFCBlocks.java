@@ -1,6 +1,7 @@
 package TFC;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLadder;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.common.MinecraftForge;
 import TFC.API.Constant.Global;
@@ -34,6 +35,7 @@ import TFC.Blocks.Devices.BlockCrucible;
 import TFC.Blocks.Devices.BlockEarlyBloomery;
 import TFC.Blocks.Devices.BlockFirepit;
 import TFC.Blocks.Devices.BlockForge;
+import TFC.Blocks.Devices.BlockGunpowderWire;
 import TFC.Blocks.Devices.BlockPottery;
 import TFC.Blocks.Devices.BlockQuern;
 import TFC.Blocks.Devices.BlockScribe;
@@ -69,6 +71,7 @@ import TFC.Blocks.Vanilla.BlockCustomFenceGate;
 import TFC.Blocks.Vanilla.BlockCustomFlower;
 import TFC.Blocks.Vanilla.BlockCustomFlowing;
 import TFC.Blocks.Vanilla.BlockCustomIce;
+import TFC.Blocks.Vanilla.BlockCustomLadder;
 import TFC.Blocks.Vanilla.BlockCustomLeaves;
 import TFC.Blocks.Vanilla.BlockCustomMushroom;
 import TFC.Blocks.Vanilla.BlockCustomReed;
@@ -121,6 +124,9 @@ public class TFCBlocks
 	public static int potteryRenderId;
 	public static int tuyereRenderId;
 	public static int crucibleRenderId;
+	public static int gunpowderRenderId;
+	public static int reedsRenderId;
+	public static int ladderRenderId;
 
 	public static Block StoneIgIn;
 	public static Block StoneIgEx;
@@ -222,6 +228,8 @@ public class TFCBlocks
 	public static Block EarlyBloomery;
 	public static Block Bloom;
 	public static Block Crucible;
+	
+	public static Block GunpowderWire;
 
 	public static void RegisterBlocks()
 	{
@@ -336,6 +344,8 @@ public class TFCBlocks
 		GameRegistry.registerBlock(Thatch, TFC.Items.ItemBlocks.ItemTerraBlock.class, "Thatch");
 		GameRegistry.registerBlock(Tuyere, "Tuyere");
 		GameRegistry.registerBlock(Crucible, TFC.Items.ItemBlocks.ItemCrucible.class, "Crucible");
+		
+		GameRegistry.registerBlock(GunpowderWire, "GunpowderWire");
 	}
 
 	public static void LoadBlocks()
@@ -359,6 +369,7 @@ public class TFCBlocks
 		Block.blocksList[54] = null;
 		Block.blocksList[58] = null;
 		Block.blocksList[59] = null;
+		Block.blocksList[65] = null;
 		Block.blocksList[78] = null;
 		Block.blocksList[79] = null;
 		Block.blocksList[81] = null;
@@ -388,10 +399,11 @@ public class TFCBlocks
 		Block.blocksList[54] = (new BlockChestTFC(54, 0)).setHardness(2.5F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("chest");
 		Block.blocksList[58] = (new TFC.Blocks.Devices.BlockWorkbench(58)).setHardness(2.5F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("workbench");
 		Block.blocksList[59] = (new BlockCrop(59, 88)).setHardness(0.3F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("crops");
+		Block.blocksList[65] = new BlockCustomLadder(65);
 		Block.blocksList[78] = (new BlockCustomSnow(78)).setHardness(0.1F).setStepSound(Block.soundClothFootstep).setUnlocalizedName("snow").setLightOpacity(1);
 		Block.blocksList[79] = (new BlockCustomIce(79)).setHardness(0.5F).setLightOpacity(3).setStepSound(Block.soundGlassFootstep).setUnlocalizedName("ice");
 		Block.blocksList[81] = (new BlockCustomCactus(81)).setHardness(0.4F).setStepSound(Block.soundClothFootstep).setUnlocalizedName("cactus");
-		Block.blocksList[83] = (new BlockCustomReed(83)).setHardness(0.0F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("reeds").func_111022_d("reeds");;
+		Block.blocksList[83] = (new BlockCustomReed(83)).setHardness(8F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("reeds").func_111022_d("reeds");
 		Block.blocksList[106] = (new BlockCustomVine(106)).setHardness(0.2F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("vine").func_111022_d("vine");
 		Block.blocksList[107] = (new BlockCustomFenceGate(107)).setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("fenceGate");
 
@@ -521,6 +533,8 @@ public class TFCBlocks
 
 		TFCBlocks.Tuyere = new BlockTuyere(TFCBlockID.Tuyere).setUnlocalizedName("Tuyere");
 		TFCBlocks.Crucible = new BlockCrucible(TFCBlockID.Crucible).setUnlocalizedName("Crucible").setHardness(4.0f);
+		
+		TFCBlocks.GunpowderWire = new BlockGunpowderWire(TFCBlockID.GunpowderWire);
 
 		MinecraftForge.setBlockHarvestLevel(TFCBlocks.StoneIgIn, "pickaxe", 0);
 		MinecraftForge.setBlockHarvestLevel(TFCBlocks.StoneIgEx, "pickaxe", 0);
@@ -555,7 +569,7 @@ public class TFCBlocks
 		MinecraftForge.setBlockHarvestLevel(TFCBlocks.Detailed, "pickaxe", 0);
 		MinecraftForge.setBlockHarvestLevel(TFCBlocks.Detailed, "axe", 0);
 		MinecraftForge.setBlockHarvestLevel(Block.blocksList[53], "axe", 0);
-
+		MinecraftForge.setBlockHarvestLevel(Block.blocksList[83], "axe", 0);
 	}
 
 }

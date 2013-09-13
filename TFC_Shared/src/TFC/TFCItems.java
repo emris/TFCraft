@@ -29,6 +29,7 @@ import TFC.Items.ItemAlcohol;
 import TFC.Items.ItemBloom;
 import TFC.Items.ItemBlueprint;
 import TFC.Items.ItemClay;
+import TFC.Items.ItemCustomGunpowder;
 import TFC.Items.ItemCustomMinecart;
 import TFC.Items.ItemCustomPotion;
 import TFC.Items.ItemCustomSeeds;
@@ -949,6 +950,9 @@ public class TFCItems
 
 		minecartCrate = (new ItemCustomMinecart(TFCItemID.minecartCrate, 1)).setUnlocalizedName("minecartChest").func_111206_d("minecart_chest");
 
+		//Gunpowder
+		Item.itemsList[33+256] = null; Item.itemsList[33+256] = (new ItemCustomGunpowder(33));
+		
 		Item.itemsList[Item.bow.itemID] = null; Item.itemsList[Item.bow.itemID] = (new ItemCustomBow(5)).setUnlocalizedName("bow").func_111206_d("bow");
 		Item.itemsList[63+256] = null; Item.itemsList[63+256] = new ItemTerra(63).setUnlocalizedName("porkchopRaw");
 		Item.itemsList[64+256] = null; Item.itemsList[64+256] = new ItemTerraFood(64, 35, 0.8F, true, 38).setFolder("").setUnlocalizedName("porkchopCooked");

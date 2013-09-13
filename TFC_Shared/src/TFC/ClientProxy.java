@@ -105,12 +105,17 @@ import TFC.Render.Blocks.RenderAnvil;
 import TFC.Render.Blocks.RenderBarrel;
 import TFC.Render.Blocks.RenderBellows;
 import TFC.Render.Blocks.RenderCrucible;
+import TFC.Render.Blocks.RenderGunpowderWire;
+import TFC.Render.Blocks.RenderLadder;
 import TFC.Render.Blocks.RenderOre;
 import TFC.Render.Blocks.RenderPottery;
 import TFC.Render.Blocks.RenderQuern;
 import TFC.Render.Blocks.RenderSupportBeam;
 import TFC.Render.Blocks.RenderToolRack;
 import TFC.Render.Blocks.RenderTuyere;
+import TFC.Render.Blocks.TileEntityFirepitRenderer;
+import TFC.Render.Blocks.TileEntityLadderRenderer;
+import TFC.Render.Blocks.TileEntityReedsRenderer;
 import TFC.Render.Models.ModelBear;
 import TFC.Render.Models.ModelChickenTFC;
 import TFC.Render.Models.ModelCowTFC;
@@ -130,9 +135,11 @@ import TFC.TileEntities.TileEntityFirepit;
 import TFC.TileEntities.TileEntityFoodPrep;
 import TFC.TileEntities.TileEntityForge;
 import TFC.TileEntities.TileEntityIngotPile;
+import TFC.TileEntities.TileEntityLadder;
 import TFC.TileEntities.TileEntityLogPile;
 import TFC.TileEntities.TileEntityPottery;
 import TFC.TileEntities.TileEntityQuern;
+import TFC.TileEntities.TileEntityReeds;
 import TFC.TileEntities.TileEntityScribe;
 import TFC.TileEntities.TileEntitySluice;
 import TFC.TileEntities.TileEntityWorkbench;
@@ -189,7 +196,7 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerBlockHandler(TFCBlocks.oreRenderId = RenderingRegistry.getNextAvailableRenderId(), new RenderOre());
 		RenderingRegistry.registerBlockHandler(TFCBlocks.moltenRenderId = RenderingRegistry.getNextAvailableRenderId(), new BlockRenderHandler());
 		RenderingRegistry.registerBlockHandler(TFCBlocks.looseRockRenderId = RenderingRegistry.getNextAvailableRenderId(), new BlockRenderHandler());
-		RenderingRegistry.registerBlockHandler(TFCBlocks.FirepitRenderId = RenderingRegistry.getNextAvailableRenderId(), new BlockRenderHandler());
+		RenderingRegistry.registerBlockHandler(TFCBlocks.FirepitRenderId = RenderingRegistry.getNextAvailableRenderId(), new TileEntityFirepitRenderer());
 		RenderingRegistry.registerBlockHandler(TFCBlocks.AnvilRenderId = RenderingRegistry.getNextAvailableRenderId(), new RenderAnvil());
 		RenderingRegistry.registerBlockHandler(TFCBlocks.BellowsRenderId = RenderingRegistry.getNextAvailableRenderId(), new RenderBellows());
 		RenderingRegistry.registerBlockHandler(TFCBlocks.ScribeRenderId = RenderingRegistry.getNextAvailableRenderId(), new BlockRenderHandler());
@@ -214,6 +221,10 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerBlockHandler(TFCBlocks.tuyereRenderId = RenderingRegistry.getNextAvailableRenderId(), new RenderTuyere());
 		RenderingRegistry.registerBlockHandler(TFCBlocks.crucibleRenderId = RenderingRegistry.getNextAvailableRenderId(), new RenderCrucible());
 
+		RenderingRegistry.registerBlockHandler(TFCBlocks.gunpowderRenderId = RenderingRegistry.getNextAvailableRenderId(), new RenderGunpowderWire());
+		RenderingRegistry.registerBlockHandler(TFCBlocks.reedsRenderId = RenderingRegistry.getNextAvailableRenderId(), new BlockRenderHandler());
+		RenderingRegistry.registerBlockHandler(TFCBlocks.ladderRenderId = RenderingRegistry.getNextAvailableRenderId(), new TileEntityLadderRenderer());
+		
 		//Register our overlay changes
 		MinecraftForge.EVENT_BUS.register(new RenderOverlayHandler());
 	}
@@ -245,6 +256,9 @@ public class ClientProxy extends CommonProxy
 		ClientRegistry.registerTileEntity(TileEntityPottery.class, "Pottery", new TileEntityPotteryRenderer());
 		ClientRegistry.registerTileEntity(TileEntityFoodPrep.class, "FoodPrep", new TileEntityFoodPrepRenderer());
 		ClientRegistry.registerTileEntity(TileEntityBellows.class, "Bellows", new TileEntityBellowsRenderer());
+		ClientRegistry.registerTileEntity(TileEntityReeds.class, "Reeds", new TileEntityReedsRenderer());
+		ClientRegistry.registerTileEntity(TileEntityLadder.class, "Ladder", new TileEntityLadderRenderer());
+		ClientRegistry.registerTileEntity(TileEntityFirepit.class, "TerraFirepit", new TileEntityFirepitRenderer());
 	}
 
 	@Override

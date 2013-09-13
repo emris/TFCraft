@@ -124,6 +124,7 @@ public class TFCBlockID
 	public static int Tuyere					= 2066;
 	public static int Crucible					= 2067;
 
+	public static int GunpowderWire				= 2004;
 	
 	static Configuration config;
 	
@@ -256,6 +257,7 @@ public class TFCBlockID
 		Tuyere = TFCOptions.getIntFor(config, "block", "Tuyere", Tuyere);
 		Crucible = TFCOptions.getIntFor(config, "block", "Crucible", Crucible);
 
+		GunpowderWire = TFCOptions.getIntFor(config, "block", "GunpowderWire", GunpowderWire);
 
 		if (config != null) {
 			config.save();
