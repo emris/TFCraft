@@ -16,7 +16,7 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import TFC.Reference;
 import TFC.TFCBlocks;
 import TFC.Render.Models.ModelLadder;
-import TFC.TileEntities.TileEntityLadder;
+import TFC.TileEntities.TileEntityNULL;
 
 public class TileEntityLadderRenderer extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler
 {
@@ -31,7 +31,7 @@ public class TileEntityLadderRenderer extends TileEntitySpecialRenderer implemen
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f)
 	{
-		TileEntityLadder te = (TileEntityLadder) tileentity;
+		TileEntityNULL te = (TileEntityNULL) tileentity;
 		int meta = te.getBlockMetadata();
 
 		GL11.glPushMatrix();

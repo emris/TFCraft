@@ -55,6 +55,7 @@ import TFC.Entities.Mobs.EntitySilverfishTFC;
 import TFC.Entities.Mobs.EntitySkeletonTFC;
 import TFC.Entities.Mobs.EntitySlimeTFC;
 import TFC.Entities.Mobs.EntitySpiderTFC;
+import TFC.Entities.Mobs.EntitySpidertaur;
 import TFC.Entities.Mobs.EntitySquidTFC;
 import TFC.Entities.Mobs.EntityWolfTFC;
 import TFC.Entities.Mobs.EntityZombieTFC;
@@ -74,7 +75,7 @@ import TFC.TileEntities.TileEntityFoodPrep;
 import TFC.TileEntities.TileEntityForge;
 import TFC.TileEntities.TileEntityFruitTreeWood;
 import TFC.TileEntities.TileEntityIngotPile;
-import TFC.TileEntities.TileEntityLadder;
+import TFC.TileEntities.TileEntityNULL;
 import TFC.TileEntities.TileEntityLogPile;
 import TFC.TileEntities.TileEntityMetallurgy;
 import TFC.TileEntities.TileEntityPartial;
@@ -154,8 +155,9 @@ public class CommonProxy implements IGuiHandler
 			ModLoader.registerTileEntity(TileEntityFoodPrep.class, "FoodPrep");
 			ModLoader.registerTileEntity(TileEntityBellows.class, "Bellows");
 			ModLoader.registerTileEntity(TileEntityReeds.class, "Reeds");
-			ModLoader.registerTileEntity(TileEntityLadder.class, "Ladder");
+			ModLoader.registerTileEntity(TileEntityNULL.class, "Ladder");
 			ModLoader.registerTileEntity(TileEntityFirepit.class, "TerraFirepit");
+			ModLoader.registerTileEntity(TileEntityNULL.class, "Rail");
 		}
 
 		EntityRegistry.registerGlobalEntityID(EntityWolfTFC.class, "Wolf", ModLoader.getUniqueEntityId(), 0xffffff, 0xaaaaaa);
@@ -181,6 +183,9 @@ public class CommonProxy implements IGuiHandler
 		EntityRegistry.registerGlobalEntityID(EntityCreeperTFC.class, "Creeper", ModLoader.getUniqueEntityId(), 0xffffff, 0x105510);
 		EntityRegistry.registerGlobalEntityID(EntityProjectileTFC.class, "arrow", ModLoader.getUniqueEntityId());
 
+		EntityRegistry.registerGlobalEntityID(EntitySpidertaur.class, "Spidertaur", ModLoader.getUniqueEntityId(), 0xffffff, 0xbbbbbb);
+		EntityRegistry.registerModEntity(EntitySpidertaur.class, "spidertaurTFC", 8,TerraFirmaCraft.instance, 160, 5, true);
+		
 		EntityRegistry.registerModEntity(EntityJavelin.class, "javelin", 1,TerraFirmaCraft.instance, 160, 5, true);
 		EntityRegistry.registerModEntity(EntitySquidTFC.class, "squid", 2,TerraFirmaCraft.instance, 160, 5, true);
 		EntityRegistry.registerModEntity(EntityFallingStone.class, "fallingstone", 3,TerraFirmaCraft.instance, 160, 5, true);

@@ -74,6 +74,7 @@ import TFC.Blocks.Vanilla.BlockCustomIce;
 import TFC.Blocks.Vanilla.BlockCustomLadder;
 import TFC.Blocks.Vanilla.BlockCustomLeaves;
 import TFC.Blocks.Vanilla.BlockCustomMushroom;
+import TFC.Blocks.Vanilla.BlockCustomRail;
 import TFC.Blocks.Vanilla.BlockCustomReed;
 import TFC.Blocks.Vanilla.BlockCustomSapling;
 import TFC.Blocks.Vanilla.BlockCustomSnow;
@@ -127,6 +128,7 @@ public class TFCBlocks
 	public static int gunpowderRenderId;
 	public static int reedsRenderId;
 	public static int ladderRenderId;
+	public static int railRenderId;
 
 	public static Block StoneIgIn;
 	public static Block StoneIgEx;
@@ -370,6 +372,7 @@ public class TFCBlocks
 		Block.blocksList[58] = null;
 		Block.blocksList[59] = null;
 		Block.blocksList[65] = null;
+		Block.blocksList[66] = null;
 		Block.blocksList[78] = null;
 		Block.blocksList[79] = null;
 		Block.blocksList[81] = null;
@@ -400,6 +403,7 @@ public class TFCBlocks
 		Block.blocksList[58] = (new TFC.Blocks.Devices.BlockWorkbench(58)).setHardness(2.5F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("workbench");
 		Block.blocksList[59] = (new BlockCrop(59, 88)).setHardness(0.3F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("crops");
 		Block.blocksList[65] = new BlockCustomLadder(65);
+		Block.blocksList[66] = new BlockCustomRail(66, false);
 		Block.blocksList[78] = (new BlockCustomSnow(78)).setHardness(0.1F).setStepSound(Block.soundClothFootstep).setUnlocalizedName("snow").setLightOpacity(1);
 		Block.blocksList[79] = (new BlockCustomIce(79)).setHardness(0.5F).setLightOpacity(3).setStepSound(Block.soundGlassFootstep).setUnlocalizedName("ice");
 		Block.blocksList[81] = (new BlockCustomCactus(81)).setHardness(0.4F).setStepSound(Block.soundClothFootstep).setUnlocalizedName("cactus");

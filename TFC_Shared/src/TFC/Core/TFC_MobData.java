@@ -17,6 +17,10 @@ public class TFC_MobData
 	public static final int SpiderDamage = 80;
 	public static final int SpiderHealth = 1800;
 
+	//Spidertaur
+	public static final int SpidertaurDamage = 120;
+	public static final int SpidertaurHealth = 2500;
+	
 	//PigZombie
 	public static final int PigZombieDamage = 200;
 	public static final int PigZombieHealth = 4000;

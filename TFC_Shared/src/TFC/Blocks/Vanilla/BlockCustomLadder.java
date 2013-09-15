@@ -16,7 +16,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import TFC.TFCBlocks;
 import TFC.Blocks.BlockTerraContainer;
-import TFC.TileEntities.TileEntityLadder;
+import TFC.TileEntities.TileEntityNULL;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -217,11 +217,11 @@ public class BlockCustomLadder extends BlockTerraContainer
 	}
 	
 	public TileEntity getBlockEntity() {
-		return new TileEntityLadder();
+		return new TileEntityNULL();
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World var1) {
-		return new TileEntityLadder();
+		return new TileEntityNULL();
 	}
 }

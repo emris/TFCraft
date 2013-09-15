@@ -52,6 +52,7 @@ import TFC.Entities.Mobs.EntitySilverfishTFC;
 import TFC.Entities.Mobs.EntitySkeletonTFC;
 import TFC.Entities.Mobs.EntitySlimeTFC;
 import TFC.Entities.Mobs.EntitySpiderTFC;
+import TFC.Entities.Mobs.EntitySpidertaur;
 import TFC.Entities.Mobs.EntitySquidTFC;
 import TFC.Entities.Mobs.EntityWolfTFC;
 import TFC.Entities.Mobs.EntityZombieTFC;
@@ -93,6 +94,7 @@ import TFC.Render.RenderPigTFC;
 import TFC.Render.RenderPlayerTFC;
 import TFC.Render.RenderSheepTFC;
 import TFC.Render.RenderSkeletonTFC;
+import TFC.Render.RenderSpidertaur;
 import TFC.Render.RenderSquidTFC;
 import TFC.Render.RenderTerraJavelin;
 import TFC.Render.RenderWolfTFC;
@@ -106,7 +108,6 @@ import TFC.Render.Blocks.RenderBarrel;
 import TFC.Render.Blocks.RenderBellows;
 import TFC.Render.Blocks.RenderCrucible;
 import TFC.Render.Blocks.RenderGunpowderWire;
-import TFC.Render.Blocks.RenderLadder;
 import TFC.Render.Blocks.RenderOre;
 import TFC.Render.Blocks.RenderPottery;
 import TFC.Render.Blocks.RenderQuern;
@@ -115,6 +116,7 @@ import TFC.Render.Blocks.RenderToolRack;
 import TFC.Render.Blocks.RenderTuyere;
 import TFC.Render.Blocks.TileEntityFirepitRenderer;
 import TFC.Render.Blocks.TileEntityLadderRenderer;
+import TFC.Render.Blocks.TileEntityRailRenderer;
 import TFC.Render.Blocks.TileEntityReedsRenderer;
 import TFC.Render.Models.ModelBear;
 import TFC.Render.Models.ModelChickenTFC;
@@ -123,6 +125,7 @@ import TFC.Render.Models.ModelDeer;
 import TFC.Render.Models.ModelPigTFC;
 import TFC.Render.Models.ModelSheep1TFC;
 import TFC.Render.Models.ModelSheep2TFC;
+import TFC.Render.Models.ModelSpidertaur;
 import TFC.Render.Models.ModelSquidTFC;
 import TFC.Render.Models.ModelWolfTFC;
 import TFC.TileEntities.TEBlastFurnace;
@@ -135,8 +138,8 @@ import TFC.TileEntities.TileEntityFirepit;
 import TFC.TileEntities.TileEntityFoodPrep;
 import TFC.TileEntities.TileEntityForge;
 import TFC.TileEntities.TileEntityIngotPile;
-import TFC.TileEntities.TileEntityLadder;
 import TFC.TileEntities.TileEntityLogPile;
+import TFC.TileEntities.TileEntityNULL;
 import TFC.TileEntities.TileEntityPottery;
 import TFC.TileEntities.TileEntityQuern;
 import TFC.TileEntities.TileEntityReeds;
@@ -172,6 +175,8 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(EntityCustomMinecart.class, new RenderMinecart());
 		RenderingRegistry.registerEntityRenderingHandler(EntityStand.class,new RenderPlayerTFC());
 
+		RenderingRegistry.registerEntityRenderingHandler(EntitySpidertaur.class, new RenderSpidertaur(new ModelSpidertaur(), 0.9F));
+		
 		RenderingRegistry.registerEntityRenderingHandler(EntitySkeletonTFC.class, new RenderSkeletonTFC());
 		RenderingRegistry.registerEntityRenderingHandler(EntityZombieTFC.class, new RenderZombie());
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpiderTFC.class, new RenderSpider());
@@ -224,6 +229,7 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerBlockHandler(TFCBlocks.gunpowderRenderId = RenderingRegistry.getNextAvailableRenderId(), new RenderGunpowderWire());
 		RenderingRegistry.registerBlockHandler(TFCBlocks.reedsRenderId = RenderingRegistry.getNextAvailableRenderId(), new BlockRenderHandler());
 		RenderingRegistry.registerBlockHandler(TFCBlocks.ladderRenderId = RenderingRegistry.getNextAvailableRenderId(), new TileEntityLadderRenderer());
+		RenderingRegistry.registerBlockHandler(TFCBlocks.railRenderId = RenderingRegistry.getNextAvailableRenderId(), new TileEntityRailRenderer());
 		
 		//Register our overlay changes
 		MinecraftForge.EVENT_BUS.register(new RenderOverlayHandler());
@@ -257,8 +263,9 @@ public class ClientProxy extends CommonProxy
 		ClientRegistry.registerTileEntity(TileEntityFoodPrep.class, "FoodPrep", new TileEntityFoodPrepRenderer());
 		ClientRegistry.registerTileEntity(TileEntityBellows.class, "Bellows", new TileEntityBellowsRenderer());
 		ClientRegistry.registerTileEntity(TileEntityReeds.class, "Reeds", new TileEntityReedsRenderer());
-		ClientRegistry.registerTileEntity(TileEntityLadder.class, "Ladder", new TileEntityLadderRenderer());
+		ClientRegistry.registerTileEntity(TileEntityNULL.class, "Ladder", new TileEntityLadderRenderer());
 		ClientRegistry.registerTileEntity(TileEntityFirepit.class, "TerraFirepit", new TileEntityFirepitRenderer());
+		ClientRegistry.registerTileEntity(TileEntityNULL.class, "Rail", new TileEntityRailRenderer());
 	}
 
 	@Override
