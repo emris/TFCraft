@@ -111,6 +111,7 @@ import TFC.Render.Blocks.RenderGunpowderWire;
 import TFC.Render.Blocks.RenderOre;
 import TFC.Render.Blocks.RenderPottery;
 import TFC.Render.Blocks.RenderQuern;
+import TFC.Render.Blocks.RenderRail;
 import TFC.Render.Blocks.RenderSupportBeam;
 import TFC.Render.Blocks.RenderToolRack;
 import TFC.Render.Blocks.RenderTuyere;
@@ -229,7 +230,7 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerBlockHandler(TFCBlocks.gunpowderRenderId = RenderingRegistry.getNextAvailableRenderId(), new RenderGunpowderWire());
 		RenderingRegistry.registerBlockHandler(TFCBlocks.reedsRenderId = RenderingRegistry.getNextAvailableRenderId(), new BlockRenderHandler());
 		RenderingRegistry.registerBlockHandler(TFCBlocks.ladderRenderId = RenderingRegistry.getNextAvailableRenderId(), new TileEntityLadderRenderer());
-		RenderingRegistry.registerBlockHandler(TFCBlocks.railRenderId = RenderingRegistry.getNextAvailableRenderId(), new TileEntityRailRenderer());
+		RenderingRegistry.registerBlockHandler(TFCBlocks.railRenderId = RenderingRegistry.getNextAvailableRenderId(), new RenderRail()); // TileEntityRailRenderer());
 		
 		//Register our overlay changes
 		MinecraftForge.EVENT_BUS.register(new RenderOverlayHandler());
@@ -265,7 +266,7 @@ public class ClientProxy extends CommonProxy
 		ClientRegistry.registerTileEntity(TileEntityReeds.class, "Reeds", new TileEntityReedsRenderer());
 		ClientRegistry.registerTileEntity(TileEntityNULL.class, "Ladder", new TileEntityLadderRenderer());
 		ClientRegistry.registerTileEntity(TileEntityFirepit.class, "TerraFirepit", new TileEntityFirepitRenderer());
-		ClientRegistry.registerTileEntity(TileEntityNULL.class, "Rail", new TileEntityRailRenderer());
+//		ClientRegistry.registerTileEntity(TileEntityNULL.class, "Rail", new TileEntityRailRenderer());
 	}
 
 	@Override
