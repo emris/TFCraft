@@ -1,27 +1,38 @@
 package TFC.Core.Player;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChunkCoordinates;
+import TFC.Reference;
+import TFC.TFCBlocks;
 import TFC.API.IClothing;
 import TFC.Core.TFC_Climate;
 import TFC.Core.TFC_Core;
 import TFC.Core.TFC_Time;
+import TFC.Handlers.PacketHandler;
 import TFC.TileEntities.TileEntityFireEntity;
 
 public class BodyTempStats 
 {
-	private int temperatureLevel = 0;
+	public int temperatureLevel = 0;
 	private int prevTemperatureLevel = 0;
 	private int extraFoodConsumed = 0;
 	private int extraWaterConsumed = 0;
 	private int heatStorage = 0;
 
 	private long tempTimer = 0;
+	
+	public boolean sendPacket = false;
 
 	Random rand = new Random();
 	ItemStack itemHead,itemChest,itemLegs,itemFeet;
@@ -58,6 +69,14 @@ public class BodyTempStats
 			temperatureLevel++;
 		//if(rand.nextInt(1500 - (player.isInWater()?1000:0))<10 && food.waterLevel >= 500)
 		//	temperatureLevel--;
+		if(player.isInWater() && rand.nextInt(500)<10 && food.waterLevel >= 500){
+			ChunkCoordinates pC = player.getPlayerCoordinates();
+			int hotID = player.worldObj.getBlockId(pC.posX, pC.posY, pC.posZ);
+			if(hotID == TFCBlocks.HotWaterStill.blockID || hotID == TFCBlocks.HotWaterFlowing.blockID)
+				if(temperatureLevel < 6) temperatureLevel++;
+			else
+				temperatureLevel--;
+		}
 
 		temperatureLevel += applyTemperatureFromEnvironment(player);
 
@@ -67,8 +86,13 @@ public class BodyTempStats
 		extraFoodConsumed = (temperatureLevel <0 && heatStorage <= 0 && rand.nextInt(350)<10)?temperatureLevel*-1:0;
 		extraWaterConsumed = (temperatureLevel >0 && heatStorage <= 0 && rand.nextInt(350)<10)?temperatureLevel:0;
 
-		if(temperatureLevel != prevTemperatureLevel && !((prevTemperatureLevel >=-1 && prevTemperatureLevel <=1)&&
-				(temperatureLevel >=-1 && temperatureLevel <=1)))
+		if(temperatureLevel > 7) temperatureLevel = 7;
+		if(temperatureLevel < -7) temperatureLevel = -7;
+
+		if(temperatureLevel == 7 || temperatureLevel == -7)
+			if(rand.nextInt(1000)<5)
+				tellPlayerMessage(player);
+		if(temperatureLevel != prevTemperatureLevel && !((prevTemperatureLevel >=-1 && prevTemperatureLevel <=1)&&(temperatureLevel >=-1 && temperatureLevel <=1)))
 			tellPlayerMessage(player);
 		prevTemperatureLevel = temperatureLevel;
 		if(temperatureLevel >= -1 && temperatureLevel <= 1){
@@ -171,27 +195,43 @@ public class BodyTempStats
 
 	private void tellPlayerMessage(EntityPlayer player){
 		switch(temperatureLevel){
-		case -1:
-		case 0:
-		case 1: player.addChatMessage("You feel comfortable");break;
-		case -2: player.addChatMessage("You feel cool.");break;
-		case -3: player.addChatMessage("You feel chilled.");break;
-		case -4: player.addChatMessage("You feel cold.");break;
-		case -5: player.addChatMessage("You feel numb.");break;
-		case -6: player.addChatMessage("You feel freezing!");break;
-		case -7: killPlayer(player);break;
-		case 2: player.addChatMessage("You feel warm.");break;
-		case 3: player.addChatMessage("You feel very warm.");break;
-		case 4: player.addChatMessage("You feel hot.");break;
-		case 5: player.addChatMessage("You feel very hot.");break;
-		case 6: player.addChatMessage("You feel extremely hot!");break;
-		case 7: killPlayer(player);break;
+		case -1:sendPacket = true; break;
+		case 0:sendPacket = true; break;
+		case 1:sendPacket = true; break; //player.addChatMessage("You feel comfortable");break;
+		case -2:sendPacket = true; break; //player.addChatMessage("You feel cool.");break;
+		case -3:sendPacket = true; break; //player.addChatMessage("You feel chilled.");break;
+		case -4:sendPacket = true; break; //player.addChatMessage("You feel cold.");break;
+		case -5:sendPacket = true; break; //player.addChatMessage("You feel numb.");break;
+		case -6:sendPacket = true; break; //player.addChatMessage("You feel freezing!");break;
+		case -7:sendPacket = true; killPlayerCold(player);break;
+		case 2:sendPacket = true; break; //player.addChatMessage("You feel warm.");break;
+		case 3:sendPacket = true; break; //player.addChatMessage("You feel very warm.");break;
+		case 4:sendPacket = true; break; //player.addChatMessage("You feel hot.");break;
+		case 5:sendPacket = true; break; //player.addChatMessage("You feel very hot.");break;
+		case 6:sendPacket = true; break; //player.addChatMessage("You feel extremely hot!");break;
+		case 7:sendPacket = true; killPlayerHot(player);break;
 		}
 	}
 
-	private void killPlayer(EntityPlayer player){
-		player.inventory.dropAllItems();
-		player.setHealth(0);		
+	private void killPlayerHot(EntityPlayer player){
+		//player.inventory.dropAllItems();
+		//player.setHealth(0);
+		player.setHealth(Math.max(player.getHealth() - (player.getMaxHealth()*0.1F), 0));
+		if(player.worldObj.isRemote){
+			player.setFire(5);
+			player.hurtTime=5;
+			player.performHurtAnimation();
+		}
+	}
+	
+	private void killPlayerCold(EntityPlayer player){
+		//player.inventory.dropAllItems();
+		//player.setHealth(0);
+		player.setHealth(Math.max(player.getHealth() - (player.getMaxHealth()*0.1F), 0));
+		if(player.worldObj.isRemote){
+			player.hurtTime=5;
+			player.performHurtAnimation();
+		}
 	}
 
 	public void readNBT(NBTTagCompound nbt)
@@ -229,5 +269,29 @@ public class BodyTempStats
 	public int getExtraWater()
 	{
 		return extraWaterConsumed;
+	}
+	
+	public static Packet getStatusPacket(BodyTempStats bodytemp)
+	{
+		ByteArrayOutputStream bos=new ByteArrayOutputStream(10);
+		DataOutputStream dos=new DataOutputStream(bos);
+		Packet250CustomPayload pkt=new Packet250CustomPayload();
+		try
+		{
+			//The packet type sent determines who is expected to process this packet, the client or the server.
+			dos.writeByte(PacketHandler.Packet_Player_Status);
+			dos.writeByte(2);
+			dos.writeInt(bodytemp.temperatureLevel);
+
+			pkt.channel=Reference.ModChannel;
+			pkt.data = bos.toByteArray();
+			pkt.length= pkt.data.length;
+			pkt.isChunkDataPacket=false;
+		} 
+		catch (IOException e) 
+		{
+
+		}
+		return pkt;
 	}
 }

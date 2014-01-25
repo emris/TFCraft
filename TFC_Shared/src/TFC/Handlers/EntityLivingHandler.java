@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -13,9 +14,11 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import TFC.TFCBlocks;
 import TFC.TerraFirmaCraft;
 import TFC.API.TFCOptions;
 import TFC.Chunkdata.ChunkDataManager;
+import TFC.Core.TFC_Climate;
 import TFC.Core.TFC_Core;
 import TFC.Core.TFC_Time;
 import TFC.Core.Player.BodyTempStats;
@@ -28,6 +31,7 @@ import TFC.Food.ItemTerraFood;
 import TFC.Items.ItemArrow;
 import TFC.Items.ItemQuiver;
 import TFC.Items.Tools.ItemJavelin;
+import TFC.TileEntities.TileEntityFireEntity;
 
 public class EntityLivingHandler
 {
@@ -43,10 +47,14 @@ public class EntityLivingHandler
 			player.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(getMaxHealth(player));
 			if(!player.worldObj.isRemote)
 			{
-				//Handle Food
+				//Handle Body Temperature
 				BodyTempStats tempStats = TFC_Core.getBodyTempStats(player);
 				tempStats.onUpdate(player);
 				TFC_Core.setBodyTempStats(player, tempStats);
+				if (tempStats.sendPacket) {
+					TerraFirmaCraft.proxy.sendCustomPacketToPlayer((EntityPlayerMP)player, BodyTempStats.getStatusPacket(tempStats));
+					tempStats.sendPacket = false;
+				}
 				//Nullify the Old Food
 				player.getFoodStats().addStats(20 - player.getFoodStats().getFoodLevel(), 0.0F);
 				//Handle Food

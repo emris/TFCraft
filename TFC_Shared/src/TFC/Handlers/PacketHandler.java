@@ -30,6 +30,7 @@ import TFC.API.TFCOptions;
 import TFC.Containers.ContainerSpecialCrafting;
 import TFC.Core.TFC_Core;
 import TFC.Core.TFC_Time;
+import TFC.Core.Player.BodyTempStats;
 import TFC.Core.Player.FoodStatsTFC;
 import TFC.Core.Player.PlayerInfo;
 import TFC.Core.Player.PlayerManagerTFC;
@@ -246,8 +247,8 @@ public class PacketHandler implements IPacketHandler, IConnectionHandler {
 			else if (type == Packet_Player_Status)
 			{
 				if(world.isRemote)
-					try 
-				{
+					try
+					{
 						byte flag = dis.readByte();
 						if(flag == 0)
 						{
@@ -262,8 +263,13 @@ public class PacketHandler implements IPacketHandler, IConnectionHandler {
 							skills.setSkillSave(dis.readUTF(), dis.readInt());
 							skills = TFC_Core.getSkillStats(player);
 						}
-
-				} catch (IOException e) {}
+						else if(flag == 2)
+						{
+							BodyTempStats bodytemp = TFC_Core.getBodyTempStats(player);
+							bodytemp.temperatureLevel = dis.readInt();
+							TFC_Core.setBodyTempStats(player, bodytemp);
+						}
+					} catch (IOException e) {}
 			}
 			else if(type == Packet_Rename_Item)
 			{

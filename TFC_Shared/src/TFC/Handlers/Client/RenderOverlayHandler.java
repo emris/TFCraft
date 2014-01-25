@@ -72,7 +72,30 @@ public class RenderOverlayHandler
 			this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 0, 0, 90, 10);
 			float maxHealth = mc.thePlayer.getMaxHealth();
 			float percentHealth = mc.thePlayer.getHealth()/maxHealth;
-			this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 0, 9, (int) (90*percentHealth), 9);
+			
+			BodyTempStats bStats = TFC_Core.getBodyTempStats(mc.thePlayer);
+			int bTL = bStats.temperatureLevel;
+			if(bTL > 7) bTL = 7;
+			if(bTL < -7) bTL = -7;
+
+			switch (bTL) {
+			case -7: this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 92, 117, (int) (90*percentHealth), 9);break;
+			case -6: this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 92, 108, (int) (90*percentHealth), 9);break;
+			case -5: this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 92, 99, (int) (90*percentHealth), 9);break;
+			case -4: this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 92, 90, (int) (90*percentHealth), 9);break;
+			case -3: this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 92, 81, (int) (90*percentHealth), 9);break;
+			case -2: this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 92, 72, (int) (90*percentHealth), 9);break;
+			case -1: this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 92, 63, (int) (90*percentHealth), 9);break;
+			case 0: this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 0, 9, (int) (90*percentHealth), 9);break;
+			case 1: this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 92, 54, (int) (90*percentHealth), 9);break;
+			case 2: this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 92, 45, (int) (90*percentHealth), 9);break;
+			case 3: this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 92, 36, (int) (90*percentHealth), 9);break;
+			case 4: this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 92, 27, (int) (90*percentHealth), 9);break;
+			case 5: this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 92, 18, (int) (90*percentHealth), 9);break;
+			case 6: this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 92, 9, (int) (90*percentHealth), 9);break;
+			case 7: this.drawTexturedModalRect(sr.getScaledWidth() / 2-91, healthRowHeight, 92, 0, (int) (90*percentHealth), 9);break;
+			default:break;
+			}
 
 			//Draw Food and Water
 			FoodStatsTFC foodstats = TFC_Core.getPlayerFoodStats(mc.thePlayer);
